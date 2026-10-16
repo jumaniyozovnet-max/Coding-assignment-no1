@@ -1,0 +1,50 @@
+customer = input("Customer name: ")
+studentid = input("Has student ID (yes/no): ")
+ordertime = int(input("Order hour (0-23): "))
+dish1 = input("Dish 1 name: ")
+dish1price = float(input("Dish 1 price: "))
+dish1qty = int(input("Dish 1 quantity: "))
+dish2 = input("Dish 2 name: ")
+dish2price = float(input("Dish 2 price: "))
+dish2qty = int(input("Dish 2 quantity: "))
+dish3 = input("Dish 3 name: ")
+dish3price = float(input("Dish 3 price: "))
+dish3qty = int(input("Dish 3 quantity: "))
+cost1 = dish1price * dish1qty
+cost2 = dish2price * dish2qty
+cost3 = dish3price * dish3qty
+subtbeforedisc = cost1 + cost2 + cost3
+studeg = studentid
+StudDisc = subtbeforedisc * 0.15 if studeg else 0.0
+Hhoureligible = 14 <= ordertime <= 17
+Hhourdiscount = subtbeforedisc * 0.20 if Hhoureligible else 0.0
+maindiscount = StudDisc * (StudDisc >= Hhourdiscount) + Hhourdiscount * (Hhourdiscount > StudDisc)
+discountappname = "Student Discount" if StudDisc >= Hhourdiscount and studeg else ("Happy Hour Discount" if Hhoureligible else "None")
+largeelig = subtbeforedisc >= 150000
+largeord = subtbeforedisc * 0.05 if largeelig else 0.0
+Tdiscounts = maindiscount + largeord
+subaftdisc = subtbeforedisc - Tdiscounts
+service = subaftdisc * 0.10
+delivery = (subtbeforedisc >= 100000) * 15000
+freedelivery = subtbeforedisc < 100000
+Tfinal = subaftdisc + service + delivery
+Tsaved = Tdiscounts
+print("Order Summary")
+print("Customer Name:", customer)
+print("Student Status:", studentid)
+print("Order Time:", ordertime)
+print("\nItemized List:")
+print("-", dish1, ":", dish1qty, "x", dish1price, "=", cost1)
+print("-", dish2, ":", dish2qty, "x", dish2price, "=", cost2)
+print("-", dish3, ":", dish3qty, "x", dish3price, "=", cost3)
+print("\nSubtotal before discounts:", subtbeforedisc)
+print("Student Discount Eligible:", studeg, "| Amount:", StudDisc)
+print("Happy Hour Discount Eligible:", Hhoureligible, "| Amount:", Hhourdiscount)
+print("Applied Main Discount:", discountappname)
+print("Large Order Discount Eligible:", largeelig, "| Amount:", largeord)
+print("\nTotal Discounts:", Tdiscounts)
+print("Subtotal after discounts:", subaftdisc)
+print("Service Charge:", service)
+print("Delivery Fee:", delivery, "| Free Delivery Status:", freedelivery)
+print("Final Total:", Tfinal)
+print("Total Amount Saved:", Tsaved)
